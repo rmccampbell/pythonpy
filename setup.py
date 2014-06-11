@@ -3,7 +3,7 @@ import os
 
 setup(
     name='pythonpy',
-    version='0.1.9dev',
+    version='0.2.0',
     description='Command line utility for Python',
     scripts=[os.path.join('bin', 'pythonpy')],
     license='MIT',
