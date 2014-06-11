@@ -88,9 +88,9 @@ def format(output):
 if hasattr(result, '__iter__'):
     for x in result:
         formatted = format(x)
-        if formatted:
+        if formatted is not None:
             print formatted
 else:
     formatted = format(result)
-    if formatted:
+    if formatted is not None:
         print formatted
