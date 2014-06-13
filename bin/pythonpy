@@ -132,8 +132,7 @@ class PythonPy(object):
 
 
 def main():
-    pythonpy = PythonPy()
-    pythonpy.run()
+    PythonPy().run()
 
 
 if __name__ == '__main__':
