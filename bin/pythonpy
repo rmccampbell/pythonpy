@@ -35,7 +35,7 @@ class PythonPy(object):
                             const=True, default=False,
                             help='')
         parser.add_argument('--si', '--split_input', dest='split_input',
-                            help='pre-process each row with re.split(delimiter)')
+                            help='pre-process each row with re.split(delimiter, row)')
         parser.add_argument('--so', '--split_output', dest='split_output',
                             help='post-process each row with delimiter.join(row)')
         parser.add_argument('--ji' '--json_input',
