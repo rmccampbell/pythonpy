@@ -12,11 +12,9 @@ class PythonPy(object):
 
     def run(self):
         self.args = self.parser.parse_args()
-        stdin = self.preprocess()
+        self.stdin = self.preprocess()
         self.lazy_imports()
-        if self.args.cmd:
-            exec(self.args.cmd)
-        results = self.process(stdin)
+        results = self.process()
         self.post_process(results)
 
     def get_parser(self):
@@ -70,6 +68,7 @@ class PythonPy(object):
         if 'uuid4' in query: global uuid4; from uuid import uuid4
 
     def preprocess(self):
+
         if self.args.json_input:
             stdin = (json.loads(x.rstrip()) for x in sys.stdin)
         elif self.args.split_input:
@@ -83,25 +82,28 @@ class PythonPy(object):
             self.args.cmd = self.args.cmd.replace("`", "'")
         return stdin
 
-    def process(self, stdin):
-        def safe_eval(text, x):
-            try:
-                return eval(text)
-            except:
-                return None
+    def safe_eval(self, text, x):
+        try:
+            return eval(text)
+        except:
+            return None
+
+    def process(self):
+        if self.args.cmd:
+            exec self.args.cmd in globals(), locals()
 
         if self.args.lines_of_stdin:
             if self.args.ignore_exceptions:
-                result = (safe_eval(self.args.evaluation, x) for x in stdin)
+                result = (self.safe_eval(self.args.evaluation, x) for x in self.stdin)
             else:
-                result = (eval(self.args.evaluation) for x in stdin)
+                result = (eval(self.args.evaluation) for x in self.stdin)
         elif self.args.filter_result:
             if self.args.ignore_exceptions:
-                result = (x for x in stdin if safe_eval(self.args.evaluation, x))
+                result = (x for x in self.stdin if self.safe_eval(self.args.evaluation, x))
             else:
-                result = (x for x in stdin if eval(self.args.evaluation))
+                result = (x for x in self.stdin if eval(self.args.evaluation))
         elif self.args.list_of_stdin:
-            l = list(stdin)
+            l = list(self.stdin)
             result = eval(self.args.evaluation)
         else:
             result = eval(self.args.evaluation)
