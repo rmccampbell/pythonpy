@@ -26,7 +26,7 @@ def lazy_imports(evaluation, pre_cmd, post_cmd):
     if 'tempfile' in query: global tempfile; import tempfile
     if 'Counter' in query: global Counter; from collections import Counter
     if 'OrderedDict' in query: global OrderedDict; from collections import OrderedDict
-    if 'groupby' in query: global OrderedDict; from collections import OrderedDict
+    if 'groupby' in query: global groupby; from itertools import groupby
     if 'uuid4' in query: global uuid4; from uuid import uuid4
 
 parser = argparse.ArgumentParser()
