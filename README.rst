@@ -227,3 +227,7 @@ Get the local network ip
   192.168.1.41
 
 ::
+
+
+Check out the wiki at github.com/Russell91/pythonpy/wiki for more advanced features
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
