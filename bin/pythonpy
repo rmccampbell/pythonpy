@@ -60,11 +60,9 @@ class PythonPy(object):
         if 'glob' in query: global glob; import glob
         if 'hashlib' in query: global hashlib; import hashlib
         if 'itertools' in query: global itertools; import itertools
-        if 'json' in query: global json; import json
         if 'math' in query: global math; import math
         if 'os' in query: global os; import os
         if 'random' in query: global random; import random
-        if 're' in query: global re; import re
         if 'shutil' in query: global shutil; import shutil
         if 'tempfile' in query: global tempfile; import tempfile
         if 'Counter' in query: global Counter; from collections import Counter
