@@ -98,7 +98,7 @@ kayak
 level
 ma'am
 
-# ignore Errors if they pop up with (--i).
+# keep going if row raises Error with (--i).
 # get the local network ip
 $ ifconfig | py -x --i 're.search(r"192\.168[\d\.]+", x).group()'
 192.168.1.41
