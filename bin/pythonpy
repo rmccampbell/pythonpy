@@ -6,9 +6,10 @@ import sys
 import json
 import re
 
-def lazy_imports(evaluation, cmd):
+def lazy_imports(evaluation, pre_cmd, post_cmd):
     query = (evaluation if evaluation else '' +
-             cmd if cmd else '')
+             pre_cmd if pre_cmd else '' +
+             post_cmd if post_cmd else '')
     if 'base64' in query: global base64; import base64
     if 'calendar' in query: global calendar; import calendar
     if 'csv' in query: global csv; import csv
@@ -39,7 +40,8 @@ parser.add_argument('-fx', dest='filter_result', action='store_const',
 parser.add_argument('-l', dest='list_of_stdin', action='store_const',
                     const=True, default=False,
                     help='treat list of stdin as l')
-parser.add_argument('-c', dest='cmd', help='run code before expression')
+parser.add_argument('-c', dest='pre_cmd', help='run code before expression')
+parser.add_argument('-C', dest='post_cmd', help='run code after expression')
 parser.add_argument('--i', '--ignore_exceptions',
                     dest='ignore_exceptions', action='store_const',
                     const=True, default=False,
@@ -68,13 +70,13 @@ else:
 
 if args.evaluation:
     args.evaluation = args.evaluation.replace("`", "'")
-if args.cmd:
-    args.cmd = args.cmd.replace("`", "'")
+if args.pre_cmd:
+    args.pre_cmd = args.pre_cmd.replace("`", "'")
 
-lazy_imports(args.evaluation, args.cmd)
+lazy_imports(args.evaluation, args.pre_cmd, args.post_cmd)
 
-if args.cmd:
-    exec(args.cmd)
+if args.pre_cmd:
+    exec(args.pre_cmd)
 
 def safe_eval(text, x):
     try:
@@ -118,3 +120,6 @@ else:
     formatted = format(result)
     if formatted is not None:
         print(formatted)
+
+if args.post_cmd:
+    exec(args.post_cmd)
