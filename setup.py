@@ -8,4 +8,5 @@ setup(
     scripts=[os.path.join('bin', 'pythonpy')],
     license='MIT',
     url='https://github.com/Russell91/pythonpy',
+    long_description='',
 )
