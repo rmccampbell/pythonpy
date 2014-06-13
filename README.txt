@@ -1,13 +1,13 @@
 # install
 sudo pip install pythonpy; alias py='pythonpy'
 
-# arithmetic
-$ py '24 * 60 ** 2'
-86400
+# float arithmetic
+$ py '3 * 1.5'
+4.5
 
-# floating point numbers
-$ py '1.0/98'
-0.010204081632
+# exponentiation
+$ py '7**3'
+343
 
 # number sequence
 $ py 'range(3)'

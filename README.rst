@@ -15,28 +15,29 @@ For a permanent alias (For Bash users):
 
 ::
 
-Arithmetic
-----------------
+Float Arithmetic
+~~~~~~~~~~~~~~~~
 
 ::
 
-  $ py '24 * 60 ** 2'
-  86400
+  $ py '3 * 1.5'
+  4.5
+
 
 ::
 
-Floating point
---------------
+Exponentiation
+~~~~~~~~~~~~~~
 
 ::
 
-  $ py '1.0/98'
-  0.010204081632 
+  $ py '7**3'
+  343
 
 ::
 
 Number sequence
----------------
+~~~~~~~~~~~~~~~
 
 ::
 
@@ -48,7 +49,7 @@ Number sequence
 ::
 
 List comprehensions
--------------------
+~~~~~~~~~~~~~~~~~~~
 
 ::
 
@@ -61,7 +62,7 @@ List comprehensions
 ::
 
 Math library usage
-------------------
+~~~~~~~~~~~~~~~~~~
 
 ::
 
@@ -71,7 +72,7 @@ Math library usage
 ::
 
 Random library usage
---------------------
+~~~~~~~~~~~~~~~~~~~~
 
 ::
 
@@ -81,7 +82,7 @@ Random library usage
 ::
 
 Multiply each line of input by 7.
----------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ::
 
@@ -93,7 +94,7 @@ Multiply each line of input by 7.
 ::
 
 Append ".txt" to each line of input
------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ::
 
@@ -121,7 +122,7 @@ Reverse a list
 ::
 
 Sum a list of numbers
----------------------
+~~~~~~~~~~~~~~~~~~~~~
 
 ::
 
@@ -131,7 +132,7 @@ Sum a list of numbers
 ::
 
 Count the lines of input
-------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 ::
 
