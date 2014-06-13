@@ -6,8 +6,8 @@ import sys
 import json
 import re
 
-def lazy_imports(evaluation, pre_cmd, post_cmd):
-    query = ((evaluation if evaluation else '') +
+def lazy_imports(expression, pre_cmd, post_cmd):
+    query = ((expression if expression else '') +
              (pre_cmd if pre_cmd else '') +
              (post_cmd if post_cmd else ''))
     if 'base64' in query: global base64; import base64
@@ -29,8 +29,10 @@ def lazy_imports(evaluation, pre_cmd, post_cmd):
     if 'groupby' in query: global groupby; from itertools import groupby
     if 'uuid4' in query: global uuid4; from uuid import uuid4
 
-parser = argparse.ArgumentParser()
-parser.add_argument('evaluation', nargs='?', default='None')
+parser = argparse.ArgumentParser(
+            formatter_class=argparse.RawDescriptionHelpFormatter)
+
+parser.add_argument('expression', nargs='?', default='None')
 parser.add_argument('-x', dest='lines_of_stdin', action='store_const',
                     const=True, default=False,
                     help='treat each row as x')
@@ -68,12 +70,12 @@ elif args.split_input:
 else:
     stdin = (x.rstrip() for x in sys.stdin)
 
-if args.evaluation:
-    args.evaluation = args.evaluation.replace("`", "'")
+if args.expression:
+    args.expression = args.expression.replace("`", "'")
 if args.pre_cmd:
     args.pre_cmd = args.pre_cmd.replace("`", "'")
 
-lazy_imports(args.evaluation, args.pre_cmd, args.post_cmd)
+lazy_imports(args.expression, args.pre_cmd, args.post_cmd)
 
 if args.pre_cmd:
     exec(args.pre_cmd)
@@ -86,19 +88,19 @@ def safe_eval(text, x):
 
 if args.lines_of_stdin:
     if args.ignore_exceptions:
-        result = (safe_eval(args.evaluation, x) for x in stdin)
+        result = (safe_eval(args.expression, x) for x in stdin)
     else:
-        result = (eval(args.evaluation) for x in stdin)
+        result = (eval(args.expression) for x in stdin)
 elif args.filter_result:
     if args.ignore_exceptions:
-        result = (x for x in stdin if safe_eval(args.evaluation, x))
+        result = (x for x in stdin if safe_eval(args.expression, x))
     else:
-        result = (x for x in stdin if eval(args.evaluation))
+        result = (x for x in stdin if eval(args.expression))
 elif args.list_of_stdin:
     l = list(stdin)
-    result = eval(args.evaluation)
+    result = eval(args.expression)
 else:
-    result = eval(args.evaluation)
+    result = eval(args.expression)
 
 def format(output):
     if output == None:
