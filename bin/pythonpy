@@ -53,7 +53,12 @@ class PythonPy(object):
     def lazy_imports(self):
         query = (self.args.evaluation if self.args.evaluation else '' +
                  self.args.cmd if self.args.cmd else '')
+        if 'base64' in query: global base64; import base64
+        if 'calendar' in query: global calendar; import calendar
+        if 'csv' in query: global csv; import csv
+        if 'datetime' in query: global datetime; import datetime
         if 'glob' in query: global glob; import glob
+        if 'hashlib' in query: global hashlib; import hashlib
         if 'itertools' in query: global itertools; import itertools
         if 'json' in query: global json; import json
         if 'math' in query: global math; import math
@@ -62,11 +67,6 @@ class PythonPy(object):
         if 're' in query: global re; import re
         if 'shutil' in query: global shutil; import shutil
         if 'tempfile' in query: global tempfile; import tempfile
-        if 'datetime' in query: global datetime; import datetime
-        if 'hashlib' in query: global hashlib; import hashlib
-        if 'csv' in query: global csv; import csv
-        if 'base64' in query: global base64; import base64
-        if 'calendar' in query: global calendar; import calendar
         if 'Counter' in query: global Counter; from collections import Counter
         if 'OrderedDict' in query: global OrderedDict; from collections import OrderedDict
         if 'uuid4' in query: global uuid4; from uuid import uuid4
