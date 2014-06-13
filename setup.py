@@ -5,7 +5,7 @@ setup(
     name='pythonpy',
     version='0.2.4dev',
     description='Take advantage of your python skills from the command line',
-    scripts=[os.path.join('bin', 'pythonpy')],
+    scripts=['pythonpy'],
     license='MIT',
     url='https://github.com/Russell91/pythonpy',
     long_description='',
