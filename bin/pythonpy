@@ -2,9 +2,9 @@
 from __future__ import (unicode_literals, absolute_import,
                         print_function, division)
 import argparse
-import sys
 import json
 import re
+import sys
 
 class PythonPy(object):
     def __init__(self):
