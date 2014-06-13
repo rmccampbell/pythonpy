@@ -1,4 +1,6 @@
 #!/usr/bin/env python
+from __future__ import (unicode_literals, absolute_import,
+                        print_function, division)
 import argparse
 import glob
 import itertools
@@ -93,8 +95,8 @@ if hasattr(result, '__iter__'):
     for x in result:
         formatted = format(x)
         if formatted is not None:
-            print formatted
+            print(formatted)
 else:
     formatted = format(result)
     if formatted is not None:
-        print formatted
+        print(formatted)
