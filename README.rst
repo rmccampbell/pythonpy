@@ -113,7 +113,7 @@ Reverse a list
 
 ::
 
-  $ py 'range(4)' | py -l 'sorted(l, reverse=True)'
+  $ py 'range(4)' | py -l 'l[::-1]'
   3
   2
   1
