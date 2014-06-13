@@ -215,7 +215,7 @@ Get long palindromes
 
 ::
 
-Ignore AttributeErrors if they pop up with (--i)
+Ignore Errors if they pop up with (--i)
 ------------------------------------------------
 
 Get the local network ip
