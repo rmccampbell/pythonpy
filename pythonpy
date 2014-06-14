@@ -74,6 +74,8 @@ if args.expression:
     args.expression = args.expression.replace("`", "'")
 if args.pre_cmd:
     args.pre_cmd = args.pre_cmd.replace("`", "'")
+if args.post_cmd:
+    args.post_cmd = args.post_cmd.replace("`", "'")
 
 lazy_imports(args.expression, args.pre_cmd, args.post_cmd)
 
