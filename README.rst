@@ -229,6 +229,5 @@ Get the local network ip
 ::
 
 
-If you haven't had enough yet, check out the `wiki <github.com/Russell91/pythonpy/wiki>`__
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
+If you haven't had enough yet, check out the `wiki <http://github.com/Russell91/pythonpy/wiki>`__
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
