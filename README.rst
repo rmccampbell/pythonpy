@@ -12,7 +12,7 @@ Float Arithmetic
 
 ::
 
-  $ py '3 * 1.5' # use wpy on windows
+  $ py '3 * 1.5'                                # For Windows use: wpy '3 * 1.5'
   4.5
 
 
