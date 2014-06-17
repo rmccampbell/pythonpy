@@ -3,7 +3,7 @@ import os
 
 setup(
     name='pythonpy',
-    version='0.2.5dev2',
+    version='0.2.5',
     description='Take advantage of your python skills from the command line',
     scripts=['pythonpy', 'py', 'wpy'],
     license='MIT',
