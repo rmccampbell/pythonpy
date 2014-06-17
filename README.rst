@@ -3,15 +3,7 @@ Installation
 
 ::
 
-  sudo pip install pythonpy && alias py='pythonpy'
-
-::
-
-For a permanent alias (For Bash users):
-
-::
-
-  echo "alias py='pythonpy'" >> ~/.bashrc
+  sudo pip install pythonpy
 
 ::
 
@@ -20,7 +12,7 @@ Float Arithmetic
 
 ::
 
-  $ py '3 * 1.5'
+  $ py '3 * 1.5' # use wpy on windows
   4.5
 
 
