@@ -45,7 +45,7 @@ def complete_all(c, s, idx):
 
 def parse_string(prefix, raw_input):
     if prefix == '':
-        return ['sys', 'json', 're', 'base64', 'calendar', 'csv', 'datetime', 'hashlib', 'glob', 'itertools', 'json', 'math', 'os', 'random', 're', 'shutil', 'tempfile']
+        return ['sys', 'json', 're', 'base64', 'calendar', 'csv', 'datetime', 'hashlib', 'itertools', 'json', 'math', 'os', 'random', 're', 'shutil']
     elif prefix.startswith('--') and not any(q in raw_input for q in ["'", '"']):
         return ['--si', '--so', '--ji', '--jo', '--i']
     elif prefix.startswith('-') and not any(q in raw_input for q in ["'", '"']):
