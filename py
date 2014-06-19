@@ -8,6 +8,7 @@ import argparse
 import sys
 import json
 import re
+from collections import Iterable
 
 def lazy_imports(expression, pre_cmd, post_cmd):
     query = ((expression if expression else '') +
@@ -118,7 +119,7 @@ def format(output):
         return output
     
 
-if hasattr(result, '__iter__'):
+if isinstance(result, Iterable) and hasattr(result, '__iter__') and not isinstance(result, str):
     for x in result:
         formatted = format(x)
         if formatted is not None:
