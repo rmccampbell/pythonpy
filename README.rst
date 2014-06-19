@@ -3,7 +3,8 @@ Installation
 
 ::
 
-  sudo pip install pythonpy && bash
+  sudo pip install pythonpy
+  bash                    # restart your shell for tab completion to take effect 
 
 ::
 
