@@ -3,7 +3,7 @@ Installation
 
 ::
 
-  sudo pip install pythonpy
+  sudo pip install pythonpy && bash
 
 ::
 
