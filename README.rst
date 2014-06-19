@@ -4,7 +4,7 @@ Installation
 ::
 
   sudo pip install pythonpy
-  bash                    # restart your shell for tab completion to take effect 
+  bash                              # restart your shell for tab completion to take effect 
 
 ::
 
@@ -13,7 +13,7 @@ Float Arithmetic
 
 ::
 
-  $ py '3 * 1.5'                                # For Windows use: wpy '3 * 1.5'
+  $ py '3 * 1.5'                                          # For Windows use: wpy '3 * 1.5'
   4.5
 
 
