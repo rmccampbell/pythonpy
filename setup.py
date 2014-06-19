@@ -11,7 +11,7 @@ setup(
     name='pythonpy',
     version='0.3.0',
     description='Take advantage of your python skills from the command line',
-    scripts=['py', 'extras/pycompleter', 'extras/wpy'],
+    scripts=['py', 'extras/py3', 'extras/pycompleter', 'extras/wpy'],
     data_files=data_files,
     license='MIT',
     url='https://github.com/Russell91/pythonpy',
