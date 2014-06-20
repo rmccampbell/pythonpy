@@ -24,51 +24,58 @@ from collections import OrderedDict
 from itertools import groupby
 from uuid import uuid4
 
-#if args.pre_cmd:
-    #exec(args.pre_cmd)
-
-#if args.post_cmd:
-    #exec(args.post_cmd)
-
 import rlcompleter
 
 
-def complete_all(c, s, idx):
-    global x
-    global l
-    x = str()
-    l = list()
-    if c.complete(s, idx):
-        return [c.complete(s, idx)] + complete_all(c, s, idx + 1)
-    return []
+def complete_all(prefix, c_arg):
+    if c_arg:
+        exec(c_arg)
+    idx = 0
+    options_set = set()
+    completer = rlcompleter.Completer()
+    while completer.complete(prefix, idx):
+        options_set.add(completer.complete(prefix, idx))
+        idx += 1
 
+    return list(options_set)
 
-def parse_string(prefix, raw_input):
-    if prefix == '':
-        return ['sys', 'json', 're', 'base64', 'calendar', 'csv', 'datetime', 'hashlib', 'itertools', 'json', 'math', 'os', 'random', 're', 'shutil']
-    elif prefix.startswith('--') and not any(q in raw_input for q in ["'", '"']):
-        return ['--si', '--so', '--ji', '--jo', '--i']
+def parse_string(input, raw_input):
+    options = []
+    prefix = input[-1].lstrip('"\'')
+    prior = input[:-1]
+    if prefix.startswith('--') and not any(q in raw_input for q in ["'", '"']):
+        options = ['--si', '--so', '--ji', '--jo', '--i']
     elif prefix.startswith('-') and not any(q in raw_input for q in ["'", '"']):
-        return ['-h', '-x', '-fx', '-l', '-c', '-C']
-    c = rlcompleter.Completer()
-    options = list(set(complete_all(c, prefix, 0)))
-    if prefix.endswith('.'):
-        options = [x for x in options if '_' not in x]
+        options = ['-h', '-x', '-fx', '-l', '-c', '-C']
+    elif prefix == '':
+        options = ['sys', 'json', 're', 'base64', 'calendar', 'csv', 'datetime', 'hashlib', 'itertools', 'json', 'math', 'os', 'random', 're', 'shutil'] # +x,l
+        if '-x' in input[:-1] or '-fx' in input[:-1]:
+            options += 'x'
+        if '-l' in input[:-1]:
+            options += 'l'
+    else:
+        c_arg = None
+        if '-x' in prior or '-fx' in prior:
+            global x
+            x = str()
+        if '-l' in prior:
+            global l
+            l = list()
+        if '-c' in prior:
+            c_index = prior.index('-c')
+            if (c_index + 1) < len(prior):
+                c_arg = prior[c_index + 1]
+        options = complete_all(prefix, c_arg)
+        if prefix.endswith('.'):
+            options = [x for x in options if '._' not in x]
     return options
-
-
-
-def parse_input(raw_input):
-    input = raw_input.split(' ')[-1].rstrip()
-    if len(input) > 0 and input[0] in ['"', "'"]:
-        input = input[1:]
-    return input
 
 
 def main():
     raw_input = next(sys.stdin)
-    prefix = parse_input(raw_input)
-    options = parse_string(prefix, raw_input)
+    input = raw_input.split(' ')
+    input[-1] = input[-1].rstrip()
+    options = parse_string(input, raw_input)
 
     if len(options) <= 1:
         options = options + [x + "'" for x in options]
