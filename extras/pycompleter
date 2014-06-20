@@ -59,7 +59,7 @@ def parse_string(prefix, raw_input):
 
 
 def parse_input(raw_input):
-    input = raw_input.rstrip().split(' ')[-1]
+    input = raw_input.split(' ')[-1].rstrip()
     if len(input) > 0 and input[0] in ['"', "'"]:
         input = input[1:]
     return input
@@ -70,11 +70,6 @@ def main():
     prefix = parse_input(raw_input)
     options = parse_string(prefix, raw_input)
 
-    with open('/tmp/a.txt', 'w') as f:
-        f.write(raw_input + '\n')
-        f.write(prefix + '\n')
-        for x in options:
-            f.write(x + '\n')
     if len(options) <= 1:
         options = options + [x + "'" for x in options]
     print(' '.join(options))
