@@ -26,10 +26,14 @@ from uuid import uuid4
 
 import rlcompleter
 
-
-def complete_all(prefix, c_arg):
-    if c_arg:
-        exec(c_arg.strip('"\''))
+def complete_all(prefix, args):
+    if args:
+        if args['x_arg']:
+            x = str()
+        if args['l_arg']:
+            l = list()
+        if args['c_arg']:
+            exec(args['c_arg'].strip('"\''))
     context = locals()
     context.update(globals())
     completer = rlcompleter.Completer(context)
@@ -51,8 +55,14 @@ def parse_string(input):
     elif input[-1].startswith('-'):
         options = ['-h', '-x', '-fx', '-l', '-c', '-C']
     elif len(prior) > 0 and prior[-1] == '-c':
-        import IPython.core.completerlib as completerlib
-        options = completerlib.module_completion(current_full) or []
+        if 'import'.startswith(current_full):
+            options = ["'import"]
+        else:
+            import completerlib
+            options = completerlib.module_completion(current_full)
+            options += completerlib.module_list('')
+            if options:
+                options = [x for x in options if x.startswith(current_prefix)]
     else:
         if current_full == '':
             options = ['sys', 'json', 're', 'base64', 'calendar', 'csv', 'datetime', 'hashlib', 'itertools', 'json', 'math', 'os', 'random', 're', 'shutil'] 
@@ -61,18 +71,17 @@ def parse_string(input):
             if '-l' in input[:-1]:
                 options += 'l'
         else:
-            c_arg = None
+            from collections import defaultdict
+            args = defaultdict(lambda: None)
             if '-x' in prior or '-fx' in prior:
-                global x
-                x = str()
+                args['x_arg'] = True
             if '-l' in prior:
-                global l
-                l = list()
+                args['l_arg'] = True
             if '-c' in prior:
                 c_index = prior.index('-c')
                 if (c_index + 1) < len(prior):
-                    c_arg = prior[c_index + 1]
-            options = complete_all(current_prefix, c_arg)
+                    args['c_arg'] = prior[c_index + 1]
+            options = complete_all(current_prefix, args)
             if current_prefix.endswith('.'):
                 options = [x for x in options if '._' not in x]
     return options
