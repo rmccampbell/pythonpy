@@ -13,7 +13,7 @@ from the install directory.''')
 
 setup(
     name='pythonpy',
-    version='0.3.1dev7',
+    version='0.3.1dev8',
     description='Take advantage of your python skills from the command line',
     scripts=['py', 'extras/py3', 'extras/pycompleter'],
     data_files=data_files,
