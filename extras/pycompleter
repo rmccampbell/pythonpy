@@ -66,7 +66,7 @@ def parse_string(input):
             module_completion, module_list = get_completerlib()
             options = module_completion(current_full) or []
             if options:
-                options = [x for x in options if x.startswith(current_prefix)]
+                options = [x.rstrip(' ') for x in options if x.startswith(current_prefix)]
         else:
             options = complete_all(current_prefix, completion_args)
             if current_prefix.endswith('.'):
