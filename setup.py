@@ -11,7 +11,7 @@ setup(
     name='pythonpy',
     version='0.3.1dev3',
     description='Take advantage of your python skills from the command line',
-    py_modules=['extras/completerlib.py'],
+    py_modules=['completion'],
     scripts=['py', 'extras/py3', 'extras/pycompleter'],
     data_files=data_files,
     license='MIT',
