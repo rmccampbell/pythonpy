@@ -26,6 +26,7 @@ from itertools import groupby
 from uuid import uuid4
 
 import rlcompleter
+sys.path.append('.')
 
 
 def complete_all(prefix, completion_args):
@@ -61,10 +62,9 @@ def parse_string(input):
     elif len(prior) > 0 and prior[-1] == '-c':
         if 'import'.startswith(current_full):
             options = ["'import"]
-        elif current_full.startswith('import '):
+        elif current_full.startswith('import ') or current_full.startswith('from '):
             module_completion, module_list = get_completerlib()
             options = module_completion(current_full) or []
-            options += module_list('')
             if options:
                 options = [x for x in options if x.startswith(current_prefix)]
         else:
