@@ -10,6 +10,7 @@ import json
 import re
 from collections import Iterable
 
+sys.path.append('.')
 def lazy_imports(expression, pre_cmd, post_cmd):
     query = ((expression if expression else '') +
              (pre_cmd if pre_cmd else '') +
