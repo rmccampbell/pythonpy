@@ -61,7 +61,7 @@ def parse_string(input):
             options = ["'import"]
         else:
             module_completion, module_list = get_completerlib()
-            options = module_completion(current_full)
+            options = module_completion(current_full) or []
             options += module_list('')
             if options:
                 options = [x for x in options if x.startswith(current_prefix)]
