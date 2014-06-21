@@ -29,23 +29,23 @@ import rlcompleter
 
 def complete_all(prefix, c_arg):
     if c_arg:
-        exec(c_arg)
+        exec(c_arg.strip('"\''))
     idx = 0
     options_set = set()
-    completer = rlcompleter.Completer()
+    completer = rlcompleter.Completer(locals())
     while completer.complete(prefix, idx):
         options_set.add(completer.complete(prefix, idx))
         idx += 1
 
     return list(options_set)
 
-def parse_string(input, raw_input):
+def parse_string(input):
     options = []
     prefix = input[-1].lstrip('"\'')
     prior = input[:-1]
-    if prefix.startswith('--') and not any(q in raw_input for q in ["'", '"']):
+    if prefix.startswith('--') and not any(q in ''.join(input) for q in ["'", '"']):
         options = ['--si', '--so', '--ji', '--jo', '--i']
-    elif prefix.startswith('-') and not any(q in raw_input for q in ["'", '"']):
+    elif prefix.startswith('-') and not any(q in ''.join(input) for q in ["'", '"']):
         options = ['-h', '-x', '-fx', '-l', '-c', '-C']
     elif prefix == '':
         options = ['sys', 'json', 're', 'base64', 'calendar', 'csv', 'datetime', 'hashlib', 'itertools', 'json', 'math', 'os', 'random', 're', 'shutil'] # +x,l
@@ -65,6 +65,7 @@ def parse_string(input, raw_input):
             c_index = prior.index('-c')
             if (c_index + 1) < len(prior):
                 c_arg = prior[c_index + 1]
+                #sys.stderr.write(c_arg)
         options = complete_all(prefix, c_arg)
         if prefix.endswith('.'):
             options = [x for x in options if '._' not in x]
@@ -72,10 +73,8 @@ def parse_string(input, raw_input):
 
 
 def main():
-    raw_input = next(sys.stdin)
-    input = raw_input.split(' ')
-    input[-1] = input[-1].rstrip()
-    options = parse_string(input, raw_input)
+    input = sys.argv[1:]
+    options = parse_string(input)
 
     if len(options) <= 1:
         options = options + [x + "'" for x in options]
