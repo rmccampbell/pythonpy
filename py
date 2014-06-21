@@ -30,6 +30,7 @@ def lazy_imports(expression, pre_cmd, post_cmd):
     if 'tempfile' in query: global tempfile; import tempfile
     if 'Counter' in query: global Counter; from collections import Counter
     if 'OrderedDict' in query: global OrderedDict; from collections import OrderedDict
+    if 'defaultdict' in query: global defaultdict; from collections import defaultdict
     if 'groupby' in query: global groupby; from itertools import groupby
     if 'uuid4' in query: global uuid4; from uuid import uuid4
 
