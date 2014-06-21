@@ -8,29 +8,38 @@ Installation
 
 ::
 
+py 'expression' ≅ python -c 'print(expression)'
+-----------------------------------------------
+
 Float Arithmetic
 ~~~~~~~~~~~~~~~~
 
 ::
 
-  $ py '3 * 1.5'                                          # For Windows use: wpy '3 * 1.5'
+  $ py '3 * 1.5' 
   4.5
 
+::
+
+Access common imports directly
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ::
 
-Exponentiation
-~~~~~~~~~~~~~~
+  $ py 'math.exp(1)'
+  2.71828182846
+
+  $ py 'random.random()'
+  0.103173957713
+  
+  $ py 'datetime.datetime.now()'
+  2014-06-20 20:22:03.699290
+
 
 ::
 
-  $ py '7**3'
-  343
-
-::
-
-Number sequence
-~~~~~~~~~~~~~~~
+Lists are printed row by row
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ::
 
@@ -39,40 +48,13 @@ Number sequence
   1
   2
 
-::
-
-List comprehensions
-~~~~~~~~~~~~~~~~~~~
+  $ py '[range(3)]'
+  [0, 1, 2]
 
 ::
 
-  $ py '[x**2 for x in range(1,5)]'
-  1
-  4
-  9
-  16
-
-::
-
-Math library usage
-~~~~~~~~~~~~~~~~~~
-
-::
-
-  $ py 'math.exp(1)'
-  2.71828182846
-
-::
-
-Random library usage
-~~~~~~~~~~~~~~~~~~~~
-
-::
-
-  $ py 'random.random()'
-  0.103173957713
-
-::
+py -x 'foo(x)' will apply foo to each line of input
+---------------------------------------------------
 
 Multiply each line of input by 7.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -92,50 +74,11 @@ Append ".txt" to each line of input
 ::
 
   $ py 'range(3)' | py -x 'x + ".txt"'
-  0.txt
   1.txt
   2.txt
+  3.txt
 
 ::
-
-Sometimes you want to treat the input as a python list
-------------------------------------------------------
-
-Reverse a list
-~~~~~~~~~~~~~~
-
-::
-
-  $ py 'range(4)' | py -l 'l[::-1]'
-  3
-  2
-  1
-  0
-
-::
-
-Sum a list of numbers
-~~~~~~~~~~~~~~~~~~~~~
-
-::
-
-  $ py 'range(4)' | py -l 'sum(int(x) for x in l)'
-  6
-
-::
-
-Count the lines of input
-~~~~~~~~~~~~~~~~~~~~~~~~
-
-::
-
-  $ py 'range(17)' | py -l 'len(l)'
-  17
-
-::
-
-Other times you just want to filter out lines from the input
-------------------------------------------------------------
 
 Get only even numbers
 ~~~~~~~~~~~~~~~~~~~~~
@@ -150,8 +93,8 @@ Get only even numbers
 
 ::
 
-The shorthand -fx (filter on x) is also available
--------------------------------------------------
+py -fx 'predicate(x)' filters rows satisfying a condition
+---------------------------------------------------------
 
 Get only odd numbers
 ~~~~~~~~~~~~~~~~~~~~
@@ -208,6 +151,41 @@ Get long palindromes
 
 ::
 
+py -l will set l = list(sys.stdin)
+-------------------------------------------
+
+Reverse the input
+~~~~~~~~~~~~~~~~~
+
+::
+
+  $ py 'range(3)' | py -l 'l[::-1]'
+  2
+  1
+  0
+
+::
+
+Sum the input
+~~~~~~~~~~~~~
+
+::
+
+  $ py 'range(3)' | py -l 'sum(int(x) for x in l)'
+  3
+
+::
+
+Count the lines of input
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+::
+
+  $ py 'range(17)' | py -l 'len(l)'
+  17
+
+::
+
 Count words beginning with each letter
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -222,19 +200,5 @@ Count words beginning with each letter
 
 ::
 
-Keep going if some rows raise Errors with (--i).
-------------------------------------------------
-
-Get the local network ip
-~~~~~~~~~~~~~~~~~~~~~~~~
-
-::
-
-  $ ifconfig | py -x --i 're.search(r"192\.168[\d\.]+", x).group()'
-  192.168.1.41
-
-::
-
-
 If you haven't had enough yet, check out the `wiki <http://github.com/Russell91/pythonpy/wiki>`__
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
