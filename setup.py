@@ -9,7 +9,7 @@ else:
 
 setup(
     name='pythonpy',
-    version='0.3.1dev',
+    version='0.3.1dev2',
     description='Take advantage of your python skills from the command line',
     scripts=['py', 'extras/py3', 'extras/pycompleter'],
     data_files=data_files,
