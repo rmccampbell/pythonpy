@@ -4,7 +4,11 @@ import os
 if os.geteuid() == 0:
      data_files = [('/etc/bash_completion.d', ['extras/pycompletion.sh']),]
 else:
-     print('User does not have write access to /etc completion will not work')
+     print(
+'''PERMISSION DENIED: User does not have write access to /etc.
+To add completion manually, run
+    source bash_completion.d/pycompletion.sh
+from the install directory.''')
      data_files = [('bash_completion.d', ['extras/pycompletion.sh']),]
 
 setup(
