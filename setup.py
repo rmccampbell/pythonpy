@@ -14,7 +14,7 @@ from the install directory.''')
 setup(
     name='pythonpy',
     version='0.3.1',
-    description='Take advantage of your python skills from the command line',
+    description='python -c, with tab completion and shorthand',
     scripts=['py', 'extras/py3', 'extras/pycompleter'],
     data_files=data_files,
     license='MIT',
