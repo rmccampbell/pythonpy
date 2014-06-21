@@ -25,7 +25,6 @@ from itertools import groupby
 from uuid import uuid4
 
 import rlcompleter
-import IPython.core.completerlib as completerlib
 
 
 def complete_all(prefix, c_arg):
@@ -52,6 +51,7 @@ def parse_string(input):
     elif input[-1].startswith('-'):
         options = ['-h', '-x', '-fx', '-l', '-c', '-C']
     elif len(prior) > 0 and prior[-1] == '-c':
+        import IPython.core.completerlib as completerlib
         options = completerlib.module_completion(current_full) or []
     else:
         if current_full == '':
