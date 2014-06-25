@@ -18,24 +18,19 @@ def lazy_imports(expression, pre_cmd, post_cmd):
     query = ((expression if expression else '') +
              (pre_cmd if pre_cmd else '') +
              (post_cmd if post_cmd else ''))
-    if 'base64' in query: global base64; import base64
-    if 'calendar' in query: global calendar; import calendar
-    if 'csv' in query: global csv; import csv
-    if 'datetime' in query: global datetime; import datetime
-    if 'hashlib' in query: global hashlib; import hashlib
-    if 'glob' in query: global glob; import glob
-    if 'itertools' in query: global itertools; import itertools
-    if 'json' in query: global json; import json
-    if 'math' in query: global math; import math
-    if 'os' in query: global os; import os
-    if 'random' in query: global random; import random
-    if 're' in query: global re; import re
-    if 'shutil' in query: global shutil; import shutil
-    if 'tempfile' in query: global tempfile; import tempfile
+
+    regex = re.compile("([a-zA-z0-9]+)\.")
+    matches = regex.findall(query)
+    for module_name in matches:
+        try:
+            module = __import__(module_name)
+            globals()[module_name] = module
+        except ImportError as e:
+            pass
+
     if 'Counter' in query: global Counter; from collections import Counter
     if 'OrderedDict' in query: global OrderedDict; from collections import OrderedDict
     if 'groupby' in query: global groupby; from itertools import groupby
-    if 'uuid4' in query: global uuid4; from uuid import uuid4
 
 parser = argparse.ArgumentParser(
             formatter_class=argparse.RawDescriptionHelpFormatter)
