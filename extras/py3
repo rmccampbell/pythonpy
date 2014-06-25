@@ -19,7 +19,7 @@ def lazy_imports(expression, pre_cmd, post_cmd):
              (pre_cmd if pre_cmd else '') +
              (post_cmd if post_cmd else ''))
 
-    regex = re.compile("([a-zA-z0-9]+)\.")
+    regex = re.compile("([a-zA-z0-9_]+)\.")
     matches = regex.findall(query)
     for module_name in matches:
         try:
