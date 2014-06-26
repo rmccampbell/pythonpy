@@ -15,7 +15,7 @@ from the install directory.
 
 setup(
     name='pythonpy',
-    version='0.3.1',
+    version='0.3.2dev',
     description='python -c, with tab completion and shorthand',
     scripts=['py', 'extras/py3', 'extras/pycompleter'],
     data_files=data_files,
