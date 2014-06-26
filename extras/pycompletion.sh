@@ -1,9 +1,9 @@
 _py()
 {
     COMPREPLY=($(pycompleter "${COMP_WORDS[@]}" 2>/dev/null ))
-    if [[ ${COMPREPLY[0]} == '_pycd' ]]; then
+    if [[ ${COMPREPLY[0]} == '_longopt' ]]; then
         COMPREPLY=()
-        _cd 2>/dev/null
+        _longopt 2>/dev/null
     fi
 }
 
