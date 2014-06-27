@@ -78,6 +78,8 @@ else:
 
 if args.expression:
     args.expression = args.expression.replace("`", "'")
+    if args.expression.endswith('?') or args.expression.startswith('?'):
+        args.expression = 'help(%s)' % args.expression.strip('?')
 if args.pre_cmd:
     args.pre_cmd = args.pre_cmd.replace("`", "'")
 if args.post_cmd:
