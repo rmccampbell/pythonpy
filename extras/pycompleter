@@ -319,6 +319,9 @@ def main():
         return
     options = list(set(parse_string(input)))
 
+    if ' ' in input[-1] and max(map(len, options)) + 1 >= len(input[-1]):
+        options.append(input[-1].split(' ')[-1])
+
     if len(options) <= 1:
         options = options + [x + "'" for x in options]
     print(' '.join(options))
