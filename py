@@ -10,12 +10,8 @@ import json
 import re
 from collections import Iterable
 
-sys.path.append('.')
-def lazy_imports(expression, pre_cmd, post_cmd):
-    query = ((expression if expression else '') +
-             (pre_cmd if pre_cmd else '') +
-             (post_cmd if post_cmd else ''))
-
+def lazy_imports(*args):
+    query = ' '.join([x for x in args if x])
     regex = re.compile("([a-zA-z0-9_]+)\.")
     matches = regex.findall(query)
     for module_name in matches:
@@ -84,6 +80,7 @@ if args.post_cmd:
     args.post_cmd = args.post_cmd.replace("`", "'")
 
 lazy_imports(args.expression, args.pre_cmd, args.post_cmd)
+sys.path.append('.')
 
 if args.pre_cmd:
     exec(args.pre_cmd)

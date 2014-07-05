@@ -29,6 +29,27 @@ import rlcompleter
 sys.path.append('.')
 
 
+def lazy_imports(*args):
+    old_path = sys.path
+    sys.path = [x for x in sys.path if x != '.']
+    
+    query = ' '.join([x for x in args if x])
+    regex = re.compile("([a-zA-z0-9_]+)\.")
+    matches = regex.findall(query)
+    for module_name in matches:
+        try:
+            module = __import__(module_name)
+            globals()[module_name] = module
+        except ImportError as e:
+            pass
+
+    if 'Counter' in query: global Counter; from collections import Counter
+    if 'OrderedDict' in query: global OrderedDict; from collections import OrderedDict
+    if 'defaultdict' in query: global defaultdict; from collections import defaultdict
+    if 'groupby' in query: global groupby; from itertools import groupby
+    sys.path = old_path
+
+
 def complete_all(prefix, completion_args):
     if completion_args:
         if completion_args['x_arg']:
@@ -37,6 +58,7 @@ def complete_all(prefix, completion_args):
             l = list()
         if completion_args['c_arg']:
             exec(completion_args['c_arg'].strip('"\''))
+    lazy_imports(prefix, completion_args['c_arg'])
     context = locals()
     context.update(globals())
     completer = rlcompleter.Completer(context)
