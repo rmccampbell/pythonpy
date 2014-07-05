@@ -317,12 +317,11 @@ def main():
     elif '<' in input or '>' in input:
         print('_longopt')
         return
-    options = parse_string(input)
+    options = list(set(parse_string(input)))
 
     if len(options) <= 1:
         options = options + [x + "'" for x in options]
     print(' '.join(options))
-
 
 
 if __name__ == '__main__':
