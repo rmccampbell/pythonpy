@@ -30,9 +30,6 @@ sys.path.append('.')
 
 
 def lazy_imports(*args):
-    old_path = sys.path
-    sys.path = [x for x in sys.path if x != '.']
-    
     query = ' '.join([x for x in args if x])
     regex = re.compile("([a-zA-z0-9_]+)\.")
     matches = regex.findall(query)
@@ -47,7 +44,6 @@ def lazy_imports(*args):
     if 'OrderedDict' in query: global OrderedDict; from collections import OrderedDict
     if 'defaultdict' in query: global defaultdict; from collections import defaultdict
     if 'groupby' in query: global groupby; from itertools import groupby
-    sys.path = old_path
 
 
 def complete_all(prefix, completion_args):
@@ -68,7 +64,12 @@ def complete_all(prefix, completion_args):
         options_set.add(completer.complete(prefix, idx))
         idx += 1
 
-    return list(options_set)
+    module_completion, module_list = get_completerlib()
+    options = module_completion("import " + prefix) or []
+    if options:
+        options = [x.rstrip(' ') for x in options if x.startswith(prefix)]
+
+    return options + list(options_set)
 
 
 def parse_string(input):
