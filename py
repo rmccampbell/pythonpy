@@ -80,7 +80,6 @@ if args.post_cmd:
     args.post_cmd = args.post_cmd.replace("`", "'")
 
 lazy_imports(args.expression, args.pre_cmd, args.post_cmd)
-sys.path.append('.')
 
 if args.pre_cmd:
     exec(args.pre_cmd)
