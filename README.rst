@@ -21,7 +21,7 @@ Float Arithmetic
 
 ::
 
-Access common imports directly
+Access imports directly
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ::
