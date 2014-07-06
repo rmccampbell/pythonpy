@@ -46,14 +46,14 @@ def lazy_imports(*args):
 
 
 def complete_all(prefix, completion_args):
+    lazy_imports(prefix, completion_args['c_arg'])
     if completion_args:
         if completion_args['x_arg']:
             x = str()
         if completion_args['l_arg']:
             l = list()
         if completion_args['c_arg']:
-            exec(completion_args['c_arg'].strip('"\''))
-    lazy_imports(prefix, completion_args['c_arg'])
+            exec(completion_args['c_arg'].strip('"\'').replace("`", "'"))
     context = locals()
     context.update(globals())
     completer = rlcompleter.Completer(context)
