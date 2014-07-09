@@ -13,9 +13,12 @@ from the install directory.
 *****************************************************************************''')
      data_files = [('bash_completion.d', ['extras/pycompletion.sh']),]
 
+with open('VERSION', 'r') as f:
+    __version__ = f.read()
+
 setup(
     name='pythonpy',
-    version='0.3.2',
+    version=__version__,
     description='python -c, with tab completion and shorthand',
     scripts=['py', 'extras/py3', 'extras/pycompleter'],
     data_files=data_files,
