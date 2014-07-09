@@ -133,14 +133,14 @@ if isinstance(result, Iterable) and hasattr(result, '__iter__') and not isinstan
         if formatted is not None:
             try:
                 print(formatted)
-            except:
+            except UnicodeEncodeError:
                 print(formatted.encode('utf-8'))
 else:
     formatted = format(result)
     if formatted is not None:
         try:
-                print(formatted)
-        except:
+            print(formatted)
+        except UnicodeEncodeError:
             print(formatted.encode('utf-8'))
 
 if args.post_cmd:
