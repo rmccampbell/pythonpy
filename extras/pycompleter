@@ -95,7 +95,7 @@ def parse_string(input):
                 options = [x for x in options if '._' not in x]
     else:
         if current_full == '':
-            options = ['sys', 'json', 're', 'base64', 'calendar', 'csv', 'datetime', 'hashlib', 'itertools', 'json', 'math', 'os', 'random', 're', 'shutil'] 
+            options = ['sys', 'json', 're', 'csv', 'datetime', 'hashlib', 'itertools', 'math', 'os', 'random', 'shutil'] 
             if '-x' in input[:-1] or '-fx' in input[:-1]:
                 options += 'x'
             if '-l' in input[:-1]:
