@@ -50,7 +50,7 @@ parser.add_argument('-l', dest='list_of_stdin', action='store_const',
                     help='treat list of stdin as l')
 parser.add_argument('-c', dest='pre_cmd', help='run code before expression')
 parser.add_argument('-C', dest='post_cmd', help='run code after expression')
-parser.add_argument('-V', '--version', action='version', version='py version %s' % get_version(), help='version info')
+parser.add_argument('-V', '--version', action='version', version='py version 0.3.2', help='version info')
 parser.add_argument('--i', '--ignore_exceptions',
                     dest='ignore_exceptions', action='store_const',
                     const=True, default=False,
