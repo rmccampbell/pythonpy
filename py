@@ -10,6 +10,7 @@ import json
 import re
 from collections import Iterable
 
+
 def lazy_imports(*args):
     query = ' '.join([x for x in args if x])
     regex = re.compile("([a-zA-Z_][a-zA-Z0-9_]*)\.")
@@ -43,6 +44,10 @@ parser.add_argument('-l', dest='list_of_stdin', action='store_const',
                     help='treat list of stdin as l')
 parser.add_argument('-c', dest='pre_cmd', help='run code before expression')
 parser.add_argument('-C', dest='post_cmd', help='run code after expression')
+__version__ = '0.3.2'
+import pkg_resources
+__version__ = pkg_resources.require("Pythonpy")[0].version
+parser.add_argument('-V', '--version', action='version', version='py version %s' % __version__, help='version info')
 parser.add_argument('--i', '--ignore_exceptions',
                     dest='ignore_exceptions', action='store_const',
                     const=True, default=False,
