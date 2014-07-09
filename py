@@ -131,11 +131,17 @@ if isinstance(result, Iterable) and hasattr(result, '__iter__') and not isinstan
     for x in result:
         formatted = format(x)
         if formatted is not None:
-            print(formatted.encode('utf-8'))
+            try:
+                print(formatted)
+            except:
+                print(formatted.encode('utf-8'))
 else:
     formatted = format(result)
     if formatted is not None:
-        print(formatted.encode('utf-8'))
+        try:
+                print(formatted)
+        except:
+            print(formatted.encode('utf-8'))
 
 if args.post_cmd:
     exec(args.post_cmd)
