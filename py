@@ -13,10 +13,8 @@ from collections import Iterable
 
 def lazy_imports(*args):
     query = ' '.join([x for x in args if x])
-    regex = re.compile("([a-zA-Z_][a-zA-Z0-9_]*)\.")
+    regex = re.compile("([a-zA-Z_][a-zA-Z0-9_]*)\.?")
     matches = regex.findall(query)
-    if not any(x in ['.', ' '] for x in args[0]):
-        matches.append(args[0])
     for module_name in matches:
         try:
             module = __import__(module_name)
