@@ -40,7 +40,10 @@ class TestPythonPy(unittest.TestCase):
                            "re.compile('[a-z]').findall('abcd')",
                            "shutil.get_archive_formats()",
                            "tempfile.gettempdir()",
-                           "uuid.uuid1()"]
+                           "uuid.uuid1()",
+                           "math",
+                           "[math]",
+                           ]
         for command in module_commands:
             check_output("py %r" % command, shell=True)
 
