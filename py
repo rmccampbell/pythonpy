@@ -29,12 +29,6 @@ def lazy_imports(*args):
     if 'defaultdict' in query: global defaultdict; from collections import defaultdict
     if 'groupby' in query: global groupby; from itertools import groupby
 
-
-def get_version():
-    with open('VERSION', 'r') as f:
-        __version__ = f.read()
-    return __version__
-
 parser = argparse.ArgumentParser(
             formatter_class=argparse.RawDescriptionHelpFormatter)
 
