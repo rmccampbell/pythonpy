@@ -11,16 +11,19 @@ import re
 from collections import Iterable
 
 
-def lazy_imports(*args):
-    query = ' '.join([x for x in args if x])
-    regex = re.compile("([a-zA-Z_][a-zA-Z0-9_]*)\.?")
-    matches = regex.findall(query)
+def import_matches(query, prefix=''):
+    matches = set(re.findall(r"(%s[a-zA-Z_][a-zA-Z0-9_]*)\.?" % prefix, query))
     for module_name in matches:
         try:
             module = __import__(module_name)
             globals()[module_name] = module
+            import_matches(query, prefix='%s.' % module_name)
         except ImportError as e:
             pass
+
+def lazy_imports(*args):
+    query = ' '.join([x for x in args if x])
+    import_matches(query)
 
     if 'Counter' in query: global Counter; from collections import Counter
     if 'OrderedDict' in query: global OrderedDict; from collections import OrderedDict
