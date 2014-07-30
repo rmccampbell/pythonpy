@@ -5,12 +5,14 @@ if os.geteuid() == 0:
      data_files = [('/etc/bash_completion.d', ['extras/pycompletion.sh']),]
 else:
      print(
-'''******************************************************************************
-PERMISSION DENIED: User does not have write access to /etc.
-To add completion manually, run
-    source bash_completion.d/pycompletion.sh
-from the install directory.
-*****************************************************************************''')
+'''**************************************************************************
+___  ____ ____ _  _ _ ____ ____ _ ____ _  _    ___  ____ _  _ _ ____ ___ 
+|__] |___ |__/ |\/| | [__  [__  | |  | |\ |    |  \ |___ |\ | | |___ |  \ 
+|    |___ |  \ |  | | ___] ___] | |__| | \|    |__/ |___ | \| | |___ |__/
+PERMISSION DENIED: Cannot copy pycompletion.sh to /etc/bash_completion.d
+To configure tab completion without root, run
+    source /path/to/install_directory/bash_completion.d/pycompletion.sh
+**************************************************************************''')
      data_files = [('bash_completion.d', ['extras/pycompletion.sh']),]
 
 setup(
