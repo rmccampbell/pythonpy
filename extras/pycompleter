@@ -304,6 +304,12 @@ def get_completerlib():
     return module_completion, module_list
 
 
+def remove_trailing_paren(str_):
+    if str_.endswith('('):
+        return str_[:-1]
+    return str_
+
+
 def main():
     input = sys.argv[1:]
     if len(input) == 0:
@@ -312,7 +318,7 @@ def main():
         print('_longopt')
         return
     else:
-        options = list(set(parse_string(input)))
+        options = list(set(map(remove_trailing_paren, parse_string(input))))
 
         if len(options) == 0:
             return
