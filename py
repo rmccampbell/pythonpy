@@ -32,6 +32,10 @@ def lazy_imports(*args):
     if 'groupby' in query: global groupby; from itertools import groupby
 
 
+def current_list(input):
+    return re.split(r'[^a-zA-Z0-9_\.]', input)
+
+
 def inspect_source(obj):
     import inspect
     try:
@@ -84,12 +88,18 @@ else:
 if args.expression:
     args.expression = args.expression.replace("`", "'")
     if args.expression.startswith('?') or args.expression.endswith('?'):
-        if args.expression.startswith('??') or args.expression.endswith('??'):
+        final_atom = current_list(args.expression.rstrip('?'))[-1]
+        first_atom = current_list(args.expression.lstrip('?'))[0]
+        if args.expression.startswith('??'):
             import inspect
-            #args.expression = "''.join(inspect.getsourcelines(%s)[0])" % args.expression.strip('?')
-            args.expression = "inspect_source(%s)" % args.expression.strip('?')
+            args.expression = "inspect_source(%s)" % first_atom
+        elif args.expression.endswith('??'):
+            import inspect
+            args.expression = "inspect_source(%s)" % final_atom
+        elif args.expression.startswith('?'):
+            args.expression = 'help(%s)' % first_atom
         else:
-            args.expression = 'help(%s)' % args.expression.strip('?')
+            args.expression = 'help(%s)' % final_atom
         if args.lines_of_stdin:
             from itertools import islice
             stdin = islice(stdin,1)
