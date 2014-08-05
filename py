@@ -38,8 +38,10 @@ def current_list(input):
 
 def inspect_source(obj):
     import inspect
+    import pydoc
     try:
-        return ''.join(inspect.getsourcelines(obj)[0])
+        pydoc.pager(''.join(inspect.getsourcelines(obj)[0]))
+        return None
     except:
         return help(obj)
 
