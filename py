@@ -21,6 +21,7 @@ def import_matches(query, prefix=''):
         except ImportError as e:
             pass
 
+
 def lazy_imports(*args):
     query = ' '.join([x for x in args if x])
     import_matches(query)
@@ -29,6 +30,14 @@ def lazy_imports(*args):
     if 'OrderedDict' in query: global OrderedDict; from collections import OrderedDict
     if 'defaultdict' in query: global defaultdict; from collections import defaultdict
     if 'groupby' in query: global groupby; from itertools import groupby
+
+
+def inspect_source(obj):
+    import inspect
+    try:
+        return ''.join(inspect.getsourcelines(obj)[0])
+    except:
+        return help(obj)
 
 parser = argparse.ArgumentParser(
             formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -75,7 +84,12 @@ else:
 if args.expression:
     args.expression = args.expression.replace("`", "'")
     if args.expression.startswith('?') or args.expression.endswith('?'):
-        args.expression = 'help(%s)' % args.expression.strip('?')
+        if args.expression.startswith('??') or args.expression.endswith('??'):
+            import inspect
+            #args.expression = "''.join(inspect.getsourcelines(%s)[0])" % args.expression.strip('?')
+            args.expression = "inspect_source(%s)" % args.expression.strip('?')
+        else:
+            args.expression = 'help(%s)' % args.expression.strip('?')
         if args.lines_of_stdin:
             from itertools import islice
             stdin = islice(stdin,1)
