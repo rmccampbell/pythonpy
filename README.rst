@@ -32,8 +32,11 @@ Access imports directly
   $ py 'random.random()'
   0.103173957713
   
-  $ py 'datetime.datetime.now()'
-  2014-06-20 20:22:03.699290
+  $ py 'datetime.datetime.now?'
+  Help on built-in function now:
+
+  now(...)
+        [tz] -> new datetime with tz's local day and time.
 
 
 ::
