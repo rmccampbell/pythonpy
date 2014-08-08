@@ -17,7 +17,7 @@ To configure tab completion without root, run
 
 setup(
     name='pythonpy',
-    version='0.3.3',
+    version='0.3.4',
     description='python -c, with tab completion and shorthand',
     scripts=['py', 'extras/py3', 'extras/pycompleter'],
     data_files=data_files,
