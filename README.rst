@@ -83,6 +83,15 @@ Append ".txt" to each line of input
 
 ::
 
+Append ".txt" to every file in the directory
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+::
+
+  $ ls | py -x '"mv %s %s.txt" % (x,x)' | sh
+
+::
+
 Get only even numbers
 ~~~~~~~~~~~~~~~~~~~~~
 
