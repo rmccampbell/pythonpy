@@ -62,7 +62,10 @@ def complete_all(prefix, completion_args):
         idx += 1
 
     module_completion, module_list = get_completerlib()
-    options = module_completion("import " + prefix) or []
+    try:
+        options = module_completion("import " + prefix) or []
+    except: #module_completion may throw exception (e.g. on 'import sqlalchemy_utils.')
+        options = []
     if options:
         options = [x.rstrip(' ') for x in options if x.startswith(prefix)]
 
