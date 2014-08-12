@@ -5,14 +5,17 @@ if os.geteuid() == 0:
      data_files = [('/etc/bash_completion.d', ['extras/pycompletion.sh']),]
 else:
      print(
-'''**************************************************************************
-___  ____ ____ _  _ _ ____ ____ _ ____ _  _    ___  ____ _  _ _ ____ ___ 
-|__] |___ |__/ |\/| | [__  [__  | |  | |\ |    |  \ |___ |\ | | |___ |  \ 
-|    |___ |  \ |  | | ___] ___] | |__| | \|    |__/ |___ | \| | |___ |__/
-PERMISSION DENIED: Cannot copy pycompletion.sh to /etc/bash_completion.d
-To configure tab completion without root, run
-    source /path/to/install_directory/bash_completion.d/pycompletion.sh
-**************************************************************************''')
+'''******************************************************************************
+Looks like you didn't run this command using sudo.
+Pythonpy needs root privileges to copy pycompletion.sh to /etc/bash_completion.d
+1) If you are in a virtualenv, you can configure tab completion without root using:
+    source /path/to/virtualenv/bash_completion.d/pycompletion.sh
+2) If you aren't using virtualenv, remember that pip requires sudo by default
+    on most systems. py is a simple python script does not require any 
+    root access or special privileges. If you don't like using root, 
+    learn virtualenv and refer to 1). 
+Installation proceeding without root access...
+******************************************************************************''')
      data_files = [('bash_completion.d', ['extras/pycompletion.sh']),]
 
 setup(
