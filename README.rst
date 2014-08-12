@@ -88,7 +88,9 @@ Append ".txt" to every file in the directory
 
 ::
 
-  $ ls | py -x '"mv %s %s.txt" % (x,x)' | sh
+  $ ls | py -x '"mv `%s` `%s.txt`" % (x,x)' | sh 
+  # sharp quotes are swapped out for single quotes
+  # single quotes handle spaces in filenames
 
 ::
 
