@@ -60,7 +60,7 @@ parser.add_argument('-l', dest='list_of_stdin', action='store_const',
                     help='treat list of stdin as l')
 parser.add_argument('-c', dest='pre_cmd', help='run code before expression')
 parser.add_argument('-C', dest='post_cmd', help='run code after expression')
-parser.add_argument('-V', '--version', action='version', version='py version 0.3.4', help='version info')
+parser.add_argument('-V', '--version', action='version', version='py3 version 0.3.4', help='version info')
 parser.add_argument('--ji', '--json_input',
                     dest='json_input', action='store_const',
                     const=True, default=False,
