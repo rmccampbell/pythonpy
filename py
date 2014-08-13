@@ -81,7 +81,19 @@ parser.add_argument('--i', '--ignore_exceptions',
 args = parser.parse_args()
 
 if args.json_input:
-    stdin = (json.loads(x.rstrip()) for x in sys.stdin)
+    def loads(str_):
+        try:
+            return json.loads(str_.rstrip())
+        except Exception as ex:
+            if args.ignore_exceptions:
+                pass
+            else:
+                if sum(1 for x in sys.stdin) > 0:
+                    sys.stderr.write(
+"Json expressions are assumed to be oneline. Try piping input into py -l '\"\".join(l)'\n"
+"first if you have a multi-line json file and not a file with multiple lines of json\n")
+                raise ex
+    stdin = (loads(x) for x in sys.stdin)
 elif args.input_delimiter:
     stdin = (re.split(args.input_delimiter, x.rstrip()) for x in sys.stdin)
 else:
