@@ -61,14 +61,6 @@ parser.add_argument('-l', dest='list_of_stdin', action='store_const',
 parser.add_argument('-c', dest='pre_cmd', help='run code before expression')
 parser.add_argument('-C', dest='post_cmd', help='run code after expression')
 parser.add_argument('-V', '--version', action='version', version='py version 0.3.4', help='version info')
-parser.add_argument('--i', '--ignore_exceptions',
-                    dest='ignore_exceptions', action='store_const',
-                    const=True, default=False,
-                    help='')
-parser.add_argument('--si', '--split_input', dest='input_delimiter',
-                    help='pre-process each row with re.split(delimiter, row)')
-parser.add_argument('--so', '--split_output', dest='output_delimiter',
-                    help='post-process each row with delimiter.join(row)')
 parser.add_argument('--ji', '--json_input',
                     dest='json_input', action='store_const',
                     const=True, default=False,
@@ -77,6 +69,14 @@ parser.add_argument('--jo', '--json_output',
                     dest='json_output', action='store_const',
                     const=True, default=False,
                     help='post-process each row with json.dumps(row)')
+parser.add_argument('--si', '--split_input', dest='input_delimiter',
+                    help='pre-process each row with re.split(delimiter, row)')
+parser.add_argument('--so', '--split_output', dest='output_delimiter',
+                    help='post-process each row with delimiter.join(row)')
+parser.add_argument('--i', '--ignore_exceptions',
+                    dest='ignore_exceptions', action='store_const',
+                    const=True, default=False,
+                    help='Wrap try-except-pass around each row of -x or -fx')
 
 args = parser.parse_args()
 
