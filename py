@@ -65,9 +65,9 @@ parser.add_argument('--i', '--ignore_exceptions',
                     dest='ignore_exceptions', action='store_const',
                     const=True, default=False,
                     help='')
-parser.add_argument('--si', '--split_input', dest='split_input',
+parser.add_argument('--si', '--split_input', dest='input_delimiter',
                     help='pre-process each row with re.split(delimiter, row)')
-parser.add_argument('--so', '--split_output', dest='split_output',
+parser.add_argument('--so', '--split_output', dest='output_delimiter',
                     help='post-process each row with delimiter.join(row)')
 parser.add_argument('--ji', '--json_input',
                     dest='json_input', action='store_const',
@@ -82,8 +82,8 @@ args = parser.parse_args()
 
 if args.json_input:
     stdin = (json.loads(x.rstrip()) for x in sys.stdin)
-elif args.split_input:
-    stdin = (re.split(args.split_input, x.rstrip()) for x in sys.stdin)
+elif args.input_delimiter:
+    stdin = (re.split(args.input_delimiter, x.rstrip()) for x in sys.stdin)
 else:
     stdin = (x.rstrip() for x in sys.stdin)
 
@@ -142,8 +142,8 @@ def format(output):
         return None
     elif args.json_output:
         return json.dumps(output)
-    elif args.split_output:
-        return args.split_output.join(output)
+    elif args.output_delimiter:
+        return args.output_delimiter.join(output)
     else:
         return output
     
