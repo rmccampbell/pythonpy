@@ -22,7 +22,7 @@ setup(
     name='pythonpy',
     version='0.3.4',
     description='python -c, with tab completion and shorthand',
-    scripts=['py', 'extras/py3', 'extras/pycompleter'],
+    scripts=['py', 'extras/py3', 'extras/pycompleter',  'extras/pycompleter3'],
     data_files=data_files,
     license='MIT',
     url='https://github.com/Russell91/pythonpy',
