@@ -69,11 +69,11 @@ parser.add_argument('--si', '--split_input', dest='split_input',
                     help='pre-process each row with re.split(delimiter, row)')
 parser.add_argument('--so', '--split_output', dest='split_output',
                     help='post-process each row with delimiter.join(row)')
-parser.add_argument('--ji' '--json_input',
+parser.add_argument('--ji', '--json_input',
                     dest='json_input', action='store_const',
                     const=True, default=False,
                     help='pre-process each row with json.loads(row)')
-parser.add_argument('--jo' '--json_output',
+parser.add_argument('--jo', '--json_output',
                     dest='json_output', action='store_const',
                     const=True, default=False,
                     help='post-process each row with json.dumps(row)')
