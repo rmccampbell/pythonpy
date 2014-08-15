@@ -90,8 +90,8 @@ if args.json_input:
             else:
                 if sum(1 for x in sys.stdin) > 0:
                     sys.stderr.write(
-"""Json expressions are assumed to be oneline. Try piping input into py -l '"".join(l)'
-first if you have a multi-line json file and not a file with multiple lines of json.
+"""Hint: --ji requies oneline json strings. Use py 'json.load(sys.stdin)' 
+if you have a multi-line json file and not a file with multiple lines of json.
 """)
                 raise ex
     stdin = (loads(x) for x in sys.stdin)
