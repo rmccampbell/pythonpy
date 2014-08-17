@@ -77,9 +77,9 @@ Append ".txt" to each line of input
 ::
 
   $ py 'range(3)' | py -x 'x + ".txt"'
+  0.txt
   1.txt
   2.txt
-  3.txt
 
 ::
 
