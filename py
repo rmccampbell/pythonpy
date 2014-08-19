@@ -76,7 +76,7 @@ parser.add_argument('--so', '--split_output', dest='output_delimiter',
 parser.add_argument('--i', '--ignore_exceptions',
                     dest='ignore_exceptions', action='store_const',
                     const=True, default=False,
-                    help='Wrap try-except-pass around each row of -x or -fx')
+                    help='Wrap try-except-pass around each row')
 
 args = parser.parse_args()
 
