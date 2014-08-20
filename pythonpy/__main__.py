@@ -1,8 +1,8 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python2
 from __future__ import (unicode_literals, absolute_import,
                         print_function, division)
 from signal import signal, SIGPIPE, SIG_DFL
-signal(SIGPIPE,SIG_DFL) 
+signal(SIGPIPE,SIG_DFL)
 
 import argparse
 import sys
@@ -60,7 +60,7 @@ parser.add_argument('-l', dest='list_of_stdin', action='store_const',
                     help='treat list of stdin as l')
 parser.add_argument('-c', dest='pre_cmd', help='run code before expression')
 parser.add_argument('-C', dest='post_cmd', help='run code after expression')
-parser.add_argument('-V', '--version', action='version', version='py3 version 0.3.4', help='version info')
+parser.add_argument('-V', '--version', action='version', version='py version 0.3.4', help='version info')
 parser.add_argument('--ji', '--json_input',
                     dest='json_input', action='store_const',
                     const=True, default=False,
@@ -76,12 +76,25 @@ parser.add_argument('--so', '--split_output', dest='output_delimiter',
 parser.add_argument('--i', '--ignore_exceptions',
                     dest='ignore_exceptions', action='store_const',
                     const=True, default=False,
-                    help='Wrap try-except-pass around each row of -x or -fx')
+                    help='Wrap try-except-pass around each row')
 
 args = parser.parse_args()
 
 if args.json_input:
-    stdin = (json.loads(x.rstrip()) for x in sys.stdin)
+    def loads(str_):
+        try:
+            return json.loads(str_.rstrip())
+        except Exception as ex:
+            if args.ignore_exceptions:
+                pass
+            else:
+                if sum(1 for x in sys.stdin) > 0:
+                    sys.stderr.write(
+"""Hint: --ji requies oneline json strings. Use py 'json.load(sys.stdin)'
+if you have a multi-line json file and not a file with multiple lines of json.
+""")
+                raise ex
+    stdin = (loads(x) for x in sys.stdin)
 elif args.input_delimiter:
     stdin = (re.split(args.input_delimiter, x.rstrip()) for x in sys.stdin)
 else:
@@ -146,7 +159,7 @@ def format(output):
         return args.output_delimiter.join(output)
     else:
         return output
-    
+
 
 if isinstance(result, Iterable) and hasattr(result, '__iter__') and not isinstance(result, str):
     for x in result:
@@ -166,3 +179,7 @@ else:
 
 if args.post_cmd:
     exec(args.post_cmd)
+
+def main():
+    # This does nothing.  exec() does not easily work in a function.  Sorry.
+    pass
