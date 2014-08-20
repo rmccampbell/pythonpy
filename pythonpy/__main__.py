@@ -10,6 +10,9 @@ import json
 import re
 from collections import Iterable
 
+__version__ = '0.3.4'
+__version_info__ = '%s version %s' % (sys.argv[0], __version__)
+
 
 def import_matches(query, prefix=''):
     matches = set(re.findall(r"(%s[a-zA-Z_][a-zA-Z0-9_]*)\.?" % prefix, query))
@@ -60,7 +63,7 @@ parser.add_argument('-l', dest='list_of_stdin', action='store_const',
                     help='treat list of stdin as l')
 parser.add_argument('-c', dest='pre_cmd', help='run code before expression')
 parser.add_argument('-C', dest='post_cmd', help='run code after expression')
-parser.add_argument('-V', '--version', action='version', version='py version 0.3.4', help='version info')
+parser.add_argument('-V', '--version', action='version', version=__version_info__, help='version info')
 parser.add_argument('--ji', '--json_input',
                     dest='json_input', action='store_const',
                     const=True, default=False,

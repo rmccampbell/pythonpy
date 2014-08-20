@@ -22,12 +22,7 @@ Installation proceeding without root access...
 
 py_entry = 'py%s = pythonpy.__main__:main'
 pycompleter_entry = 'pycompleter%s = pythonpy.pycompleter:main'
-endings = (
-    '',
-    '%d' % sys.version_info[0],
-    '%d.%d' % sys.version_info[0:2]
-)
-
+endings = ('', sys.version[:1], sys.version[:3])
 entry_points_scripts = []
 for e in endings:
     entry_points_scripts.append(py_entry % e)
