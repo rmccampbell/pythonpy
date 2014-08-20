@@ -26,11 +26,6 @@ def lazy_imports(*args):
     query = ' '.join([x for x in args if x])
     import_matches(query)
 
-    if 'Counter' in query: global Counter; from collections import Counter
-    if 'OrderedDict' in query: global OrderedDict; from collections import OrderedDict
-    if 'defaultdict' in query: global defaultdict; from collections import defaultdict
-    if 'groupby' in query: global groupby; from itertools import groupby
-
 
 def current_list(input):
     return re.split(r'[^a-zA-Z0-9_\.]', input)
