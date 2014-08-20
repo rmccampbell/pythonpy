@@ -77,108 +77,111 @@ parser.add_argument('--i', '--ignore_exceptions',
                     const=True, default=False,
                     help='Wrap try-except-pass around each row')
 
-args = parser.parse_args()
+try:
+    args = parser.parse_args()
 
-if args.json_input:
-    def loads(str_):
-        try:
-            return json.loads(str_.rstrip())
-        except Exception as ex:
-            if args.ignore_exceptions:
-                pass
+    if args.json_input:
+        def loads(str_):
+            try:
+                return json.loads(str_.rstrip())
+            except Exception as ex:
+                if args.ignore_exceptions:
+                    pass
+                else:
+                    if sum(1 for x in sys.stdin) > 0:
+                        sys.stderr.write(
+    """Hint: --ji requies oneline json strings. Use py 'json.load(sys.stdin)'
+    if you have a multi-line json file and not a file with multiple lines of json.
+    """)
+                    raise ex
+        stdin = (loads(x) for x in sys.stdin)
+    elif args.input_delimiter:
+        stdin = (re.split(args.input_delimiter, x.rstrip()) for x in sys.stdin)
+    else:
+        stdin = (x.rstrip() for x in sys.stdin)
+
+    if args.expression:
+        args.expression = args.expression.replace("`", "'")
+        if args.expression.startswith('?') or args.expression.endswith('?'):
+            final_atom = current_list(args.expression.rstrip('?'))[-1]
+            first_atom = current_list(args.expression.lstrip('?'))[0]
+            if args.expression.startswith('??'):
+                import inspect
+                args.expression = "inspect_source(%s)" % first_atom
+            elif args.expression.endswith('??'):
+                import inspect
+                args.expression = "inspect_source(%s)" % final_atom
+            elif args.expression.startswith('?'):
+                args.expression = 'help(%s)' % first_atom
             else:
-                if sum(1 for x in sys.stdin) > 0:
-                    sys.stderr.write(
-"""Hint: --ji requies oneline json strings. Use py 'json.load(sys.stdin)'
-if you have a multi-line json file and not a file with multiple lines of json.
-""")
-                raise ex
-    stdin = (loads(x) for x in sys.stdin)
-elif args.input_delimiter:
-    stdin = (re.split(args.input_delimiter, x.rstrip()) for x in sys.stdin)
-else:
-    stdin = (x.rstrip() for x in sys.stdin)
+                args.expression = 'help(%s)' % final_atom
+            if args.lines_of_stdin:
+                from itertools import islice
+                stdin = islice(stdin,1)
+    if args.pre_cmd:
+        args.pre_cmd = args.pre_cmd.replace("`", "'")
+    if args.post_cmd:
+        args.post_cmd = args.post_cmd.replace("`", "'")
 
-if args.expression:
-    args.expression = args.expression.replace("`", "'")
-    if args.expression.startswith('?') or args.expression.endswith('?'):
-        final_atom = current_list(args.expression.rstrip('?'))[-1]
-        first_atom = current_list(args.expression.lstrip('?'))[0]
-        if args.expression.startswith('??'):
-            import inspect
-            args.expression = "inspect_source(%s)" % first_atom
-        elif args.expression.endswith('??'):
-            import inspect
-            args.expression = "inspect_source(%s)" % final_atom
-        elif args.expression.startswith('?'):
-            args.expression = 'help(%s)' % first_atom
+    lazy_imports(args.expression, args.pre_cmd, args.post_cmd)
+
+    if args.pre_cmd:
+        exec(args.pre_cmd)
+
+    def safe_eval(text, x):
+        try:
+            return eval(text)
+        except:
+            return None
+
+    if args.lines_of_stdin:
+        if args.ignore_exceptions:
+            result = (safe_eval(args.expression, x) for x in stdin)
         else:
-            args.expression = 'help(%s)' % final_atom
-        if args.lines_of_stdin:
-            from itertools import islice
-            stdin = islice(stdin,1)
-if args.pre_cmd:
-    args.pre_cmd = args.pre_cmd.replace("`", "'")
-if args.post_cmd:
-    args.post_cmd = args.post_cmd.replace("`", "'")
-
-lazy_imports(args.expression, args.pre_cmd, args.post_cmd)
-
-if args.pre_cmd:
-    exec(args.pre_cmd)
-
-def safe_eval(text, x):
-    try:
-        return eval(text)
-    except:
-        return None
-
-if args.lines_of_stdin:
-    if args.ignore_exceptions:
-        result = (safe_eval(args.expression, x) for x in stdin)
+            result = (eval(args.expression) for x in stdin)
+    elif args.filter_result:
+        if args.ignore_exceptions:
+            result = (x for x in stdin if safe_eval(args.expression, x))
+        else:
+            result = (x for x in stdin if eval(args.expression))
+    elif args.list_of_stdin:
+        l = list(stdin)
+        result = eval(args.expression)
     else:
-        result = (eval(args.expression) for x in stdin)
-elif args.filter_result:
-    if args.ignore_exceptions:
-        result = (x for x in stdin if safe_eval(args.expression, x))
+        result = eval(args.expression)
+
+    def format(output):
+        if output == None:
+            return None
+        elif args.json_output:
+            return json.dumps(output)
+        elif args.output_delimiter:
+            return args.output_delimiter.join(output)
+        else:
+            return output
+
+
+    if isinstance(result, Iterable) and hasattr(result, '__iter__') and not isinstance(result, str):
+        for x in result:
+            formatted = format(x)
+            if formatted is not None:
+                try:
+                    print(formatted)
+                except UnicodeEncodeError:
+                    print(formatted.encode('utf-8'))
     else:
-        result = (x for x in stdin if eval(args.expression))
-elif args.list_of_stdin:
-    l = list(stdin)
-    result = eval(args.expression)
-else:
-    result = eval(args.expression)
-
-def format(output):
-    if output == None:
-        return None
-    elif args.json_output:
-        return json.dumps(output)
-    elif args.output_delimiter:
-        return args.output_delimiter.join(output)
-    else:
-        return output
-
-
-if isinstance(result, Iterable) and hasattr(result, '__iter__') and not isinstance(result, str):
-    for x in result:
-        formatted = format(x)
+        formatted = format(result)
         if formatted is not None:
             try:
                 print(formatted)
             except UnicodeEncodeError:
                 print(formatted.encode('utf-8'))
-else:
-    formatted = format(result)
-    if formatted is not None:
-        try:
-            print(formatted)
-        except UnicodeEncodeError:
-            print(formatted.encode('utf-8'))
 
-if args.post_cmd:
-    exec(args.post_cmd)
+    if args.post_cmd:
+        exec(args.post_cmd)
+except Exception as ex:
+    import traceback
+    print(traceback.format_exc())
 
 def main():
-    # This does nothing.  exec() does not easily work in a function.  Sorry.
     pass

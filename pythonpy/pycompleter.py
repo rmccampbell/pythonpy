@@ -37,11 +37,6 @@ def lazy_imports(*args):
         except ImportError as e:
             pass
 
-    if 'Counter' in query: global Counter; from collections import Counter
-    if 'OrderedDict' in query: global OrderedDict; from collections import OrderedDict
-    if 'defaultdict' in query: global defaultdict; from collections import defaultdict
-    if 'groupby' in query: global groupby; from itertools import groupby
-
 
 def complete_all(prefix, completion_args):
     lazy_imports(prefix, completion_args['c_arg'])
