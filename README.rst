@@ -205,7 +205,7 @@ Count words beginning with each letter
 
 ::
 
-  $ cat /usr/share/dict/words | py -x 'x[0].lower()' | py -l 'Counter(l).most_common(5)'
+  $ cat /usr/share/dict/words | py -x 'x[0].lower()' | py -l 'collections.Counter(l).most_common(5)'
   ('s', 11327)
   ('c', 9521)
   ('p', 7659)
