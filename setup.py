@@ -35,7 +35,7 @@ setup(
     data_files=data_files,
     license='MIT',
     url='https://github.com/Russell91/pythonpy',
-    long_description='',
+    long_description='https://github.com/Russell91/pythonpy',
     packages = ['pythonpy'],
     entry_points = {
         'console_scripts': entry_points_scripts
