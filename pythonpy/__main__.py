@@ -5,13 +5,14 @@ from signal import signal, SIGPIPE, SIG_DFL
 signal(SIGPIPE,SIG_DFL)
 
 import argparse
+import os.path
 import sys
 import json
 import re
 from collections import Iterable
 
 __version__ = '0.3.4'
-__version_info__ = '%s version %s' % (sys.argv[0], __version__)
+__version_info__ = '%s version %s' % (os.path.basename(sys.argv[0]), __version__)
 
 
 def import_matches(query, prefix=''):
