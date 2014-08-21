@@ -11,7 +11,10 @@ import json
 import re
 from collections import Iterable
 
-__version__ = '0.3.4'
+try:
+    from . import __version__
+except (ImportError, ValueError, SystemError):
+    __version__ = '???'  # NOQA
 __version_info__ = '%s version %s' % (os.path.basename(sys.argv[0]), __version__)
 
 
