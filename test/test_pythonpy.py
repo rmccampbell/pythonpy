@@ -3,27 +3,27 @@ from subprocess import check_output
 
 class TestPythonPy(unittest.TestCase):
     def test_empty(self):
-        self.assertEqual(check_output(['py']),'')
-        
+        self.assertEqual(check_output(['py']), b'')
+
     def test_numbers(self):
-        self.assertEqual(check_output(['py', '3 * 4.5']),'13.5\n')
+        self.assertEqual(check_output(['py', '3 * 4.5']), b'13.5\n')
 
     def test_range(self):
-        self.assertEqual(check_output(['py', 'range(3)']), '\n'.join(map(str, range(3))) + '\n')
+        self.assertEqual(check_output(['py', 'range(3)']), b'0\n1\n2\n')
 
     def test_split_input(self):
-        self.assertEqual(check_output(["""echo a,b | py -x 'x[1]' --si ,"""], shell=True), 'b\n')
+        self.assertEqual(check_output(["""echo a,b | py -x 'x[1]' --si ,"""], shell=True), b'b\n')
 
     def test_split_output(self):
-        self.assertEqual(check_output(["""echo abc | py -x x --si '' --so ','"""], shell=True), 'a,b,c\n')
+        self.assertEqual(check_output(["""echo abc | py -x x --si '' --so ','"""], shell=True), b'a,b,c\n')
 
     def test_ignore_errors(self):
-        self.assertEqual(check_output("""echo a | py -x --i 'None.None'""", shell=True), '')
-        self.assertEqual(check_output("""echo a | py -fx --i 'None.None'""", shell=True), '')
+        self.assertEqual(check_output("""echo a | py -x --i 'None.None'""", shell=True), b'')
+        self.assertEqual(check_output("""echo a | py -fx --i 'None.None'""", shell=True), b'')
 
     def test_statements(self):
-        self.assertEqual(check_output("""py -c 'a=5' -C 'print(a)'""", shell=True), '5\n')
-        self.assertEqual(check_output("""echo 3 | py -c 'a=5' -x x -C 'print(a)'""", shell=True), '3\n5\n')
+        self.assertEqual(check_output("""py -c 'a=5' -C 'print(a)'""", shell=True), b'5\n')
+        self.assertEqual(check_output("""echo 3 | py -c 'a=5' -x x -C 'print(a)'""", shell=True), b'3\n5\n')
 
     def test_imports(self):
         module_commands = ["math.ceil(2.5)",
