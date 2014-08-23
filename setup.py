@@ -4,9 +4,10 @@ import os
 import sys
 
 if os.geteuid() == 0:
-     data_files = [('/etc/bash_completion.d', ['pythonpy/pycompletion.sh']),]
+    data_files = [('/etc/bash_completion.d', ['pythonpy/pycompletion.sh']),]
 else:
-     print(
+    if sys.argv[1] == 'install':
+        print(
 '''******************************************************************************
 Looks like you didn't run this command using sudo.
 Pythonpy needs root privileges to copy pycompletion.sh to /etc/bash_completion.d
@@ -18,7 +19,7 @@ Pythonpy needs root privileges to copy pycompletion.sh to /etc/bash_completion.d
     learn virtualenv and refer to 1).
 Installation proceeding without root access...
 ******************************************************************************''')
-     data_files = [('bash_completion.d', ['pythonpy/pycompletion.sh']),]
+    data_files = [('bash_completion.d', ['pythonpy/pycompletion.sh']),]
 
 py_entry = 'py%s = pythonpy.__main__:main'
 pycompleter_entry = 'pycompleter%s = pythonpy.pycompleter:main'
