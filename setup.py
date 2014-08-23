@@ -14,7 +14,7 @@ Pythonpy needs root privileges to copy pycompletion.sh to /etc/bash_completion.d
 1) If you are in a virtualenv, you can configure tab completion without root using:
     source /path/to/virtualenv/bash_completion.d/pycompletion.sh
 2) If you aren't using virtualenv, remember that pip requires sudo by default
-    on most systems. py is a simple python script does not require any
+    on most systems. py is a simple python script that does not require any
     root access or special privileges. If you don't like using root,
     learn virtualenv and refer to 1).
 Installation proceeding without root access...
