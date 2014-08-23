@@ -5,7 +5,6 @@ from signal import signal, SIGPIPE, SIG_DFL
 signal(SIGPIPE,SIG_DFL)
 
 import argparse
-import os.path
 import sys
 import json
 import re
@@ -15,8 +14,8 @@ try:
     from . import __version__
 except (ImportError, ValueError, SystemError):
     __version__ = '???'  # NOQA
-__version_info__ = '''%s version %s
-python version %s''' % (os.path.basename(sys.argv[0]), __version__, sys.version)
+__version_info__ = '''pythonpy version %s
+python version %s''' % (__version__, sys.version)
 
 
 def import_matches(query, prefix=''):
