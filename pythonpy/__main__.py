@@ -154,7 +154,7 @@ try:
         result = eval(args.expression)
 
     def format(output):
-        if output == None:
+        if output is None:
             return None
         elif args.json_output:
             return json.dumps(output)
