@@ -14,8 +14,8 @@ try:
     from . import __version__
 except (ImportError, ValueError, SystemError):
     __version__ = '???'  # NOQA
-__version_info__ = '''pythonpy version %s
-python version %s''' % (__version__, sys.version)
+__version_info__ = '''Pythonpy %s
+Python %s''' % (__version__, sys.version.split(' ')[0])
 
 
 def import_matches(query, prefix=''):
