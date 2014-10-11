@@ -21,8 +21,8 @@ Float Arithmetic
 
 ::
 
-Access imports directly
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Import modules automatically
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ::
 
