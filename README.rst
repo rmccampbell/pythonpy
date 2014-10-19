@@ -21,7 +21,7 @@ Float Arithmetic
 
 ::
 
-Import modules automatically
+Import any module automatically
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ::
