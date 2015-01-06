@@ -128,7 +128,7 @@ Get words starting with "and"
 
 ::
 
-  $ cat /usr/share/dict/words | py -fx 're.match(r"and", x)' | head -5
+  $ cat /usr/share/dict/words | py -fx 'x.startswith("and")' | head -5
   and
   andante
   andante's
