@@ -8,7 +8,7 @@ import argparse
 import sys
 import json
 import re
-from collections import Iterable
+from collections.abc import Iterable
 
 try:
     from . import __version__
