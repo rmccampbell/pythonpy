@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python
 from __future__ import (unicode_literals, absolute_import,
                         print_function, division)
 from signal import signal, SIGPIPE, SIG_DFL
@@ -184,7 +184,8 @@ try:
         exec(args.post_cmd)
 except Exception as ex:
     import traceback
-    print(traceback.format_exc())
+    traceback.print_exc()
+    sys.exit(1)
 
 def main():
     pass
