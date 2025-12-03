@@ -3,7 +3,9 @@ from setuptools import setup
 import os
 import sys
 
-if os.geteuid() == 0:
+if sys.platform == 'win32':
+    data_files = []
+elif os.geteuid() == 0:
     data_files = [('/etc/bash_completion.d', ['pythonpy/pycompletion.sh']),]
 else:
     if sys.argv[1] == 'install':

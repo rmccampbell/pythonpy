@@ -1,11 +1,12 @@
 #!/usr/bin/env python
 from __future__ import (unicode_literals, absolute_import,
                         print_function, division)
-from signal import signal, SIGPIPE, SIG_DFL
-signal(SIGPIPE,SIG_DFL)
+import sys
+if sys.platform != 'win32':
+    from signal import signal, SIGPIPE, SIG_DFL
+    signal(SIGPIPE,SIG_DFL)
 
 import argparse
-import sys
 import json
 import re
 from collections.abc import Iterable
